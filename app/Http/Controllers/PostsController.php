@@ -24,8 +24,8 @@ class PostsController extends Controller
             'image' => 'required|file|image|mimes:jpeg,png,gif'
         ]);
 
-
         $filePath = request()->file('image')->storeAs('/images', request()->file('image')->hashName(), 'public');
+
         $post = Post::create([
             'path' => $filePath
         ]);

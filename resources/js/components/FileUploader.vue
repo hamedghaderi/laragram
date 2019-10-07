@@ -1,8 +1,8 @@
 <template>
     <div class="mb-8">
-        <input-file name="image" :value="image" @uploaded="uploaded"></input-file>
+        <input-file name="image" @uploaded="uploaded"></input-file>
 
-        <button class="bg-blue-100 text-blue-500 px-12 py-2 rounded-full" type="submit">Upload</button>
+        <button @click="send" class="bg-blue-100 text-blue-500 px-12 py-2 rounded-full" type="submit">Upload</button>
     </div>
 </template>
 
@@ -20,16 +20,20 @@
 
         methods: {
            uploaded(file) {
-              let data = new FormData();
+               this.image = file;
+           },
 
-              data.append('image', file);
+            send() {
+                let data = new FormData();
 
-              axios.post('/posts', data).then(response => {
-                  this.$emit('uploaded', response.data);
-              }).catch(error => {
-                  console.log(error.response.data.errors);
-              });
-           }
+                data.append('image', this.image);
+
+                axios.post('/posts', data).then(response => {
+                    this.$emit('uploaded', response.data);
+                }).catch(error => {
+                    console.log(error.response.data.errors);
+                });
+            }
         },
 
         components: {InputFile}
