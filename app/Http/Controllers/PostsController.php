@@ -3,13 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Post;
-use Illuminate\Http\Request;
 
 class PostsController extends Controller
 {
+    public static function __callStatic($name, $arguments)
+    {
+        // TODO: Implement __callStatic() method.
+    }
+
     public function index()
     {
-        $posts = Post::all();
+        $posts = POST::all();
 
         return view('posts.index', compact('posts'));
     }
@@ -20,11 +24,15 @@ class PostsController extends Controller
             'image' => 'required|file|image|mimes:jpeg,png,gif'
         ]);
 
-        $filePath = request()->file('image')->storeAs('/images', request()->file('image')->hashName(), 'public');
 
-        Post::create([
+        $filePath = request()->file('image')->storeAs('/images', request()->file('image')->hashName(), 'public');
+        $post = Post::create([
             'path' => $filePath
         ]);
+
+        if (\request()->wantsJson()) {
+            return $post;
+        }
 
         return back();
     }

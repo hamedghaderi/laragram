@@ -1,14 +1,20 @@
 @extends('layouts.master')
 
 @section('content')
-    <form action="/posts" method="POST" enctype="multipart/form-data">
-        @csrf
+    <div class="w-3/4 mx-auto py-12">
+        <file-uploader @uploaded="uploaded">
+        </file-uploader>
 
-        <input type="file" name="image">
-        <button type="submit">Upload</button>
-    </form>
-
-    @foreach ($posts as $post)
-        <img src="/storage/{{ $post->path }}" alt="test">
-    @endforeach
+        <div class="flex -mx-6 flex-wrap">
+            @foreach ($posts as $post)
+               <div class="w-1/3 mb-12">
+                   <div class="px-6">
+                       <div class="w-full h-64" style="background-image:url({{ asset('storage/' . $post->path) }});
+                               background-repeat: no-repeat; background-size: cover;"></div>
+                   </div>
+{{--                   <img src="/storage/{{ $post->path }}" alt="test" class="w-full">--}}
+               </div>
+            @endforeach
+        </div>
+    </div>
 @endsection
