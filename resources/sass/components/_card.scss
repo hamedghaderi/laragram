@@ -1,0 +1,7 @@
+.card {
+  @apply bg-gray-100 px-12 py-8 rounded shadow;
+
+  &-header {
+    @apply text-gray-500 font-bold text-xl pb-6 border-b border-gray-200 mb-6;
+  }
+}

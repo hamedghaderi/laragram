@@ -26,7 +26,7 @@ class PostsController extends Controller
 
         $filePath = request()->file('image')->storeAs('/images', request()->file('image')->hashName(), 'public');
 
-        $post = Post::create([
+        $post = auth()->user()->posts()->create([
             'path' => $filePath
         ]);
 

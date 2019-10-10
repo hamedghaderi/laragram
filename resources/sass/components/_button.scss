@@ -1,0 +1,8 @@
+.btn {
+  @apply px-8 py-2 rounded;
+
+  &-primary {
+    @apply bg-indigo-600 text-white;
+  }
+}
+
