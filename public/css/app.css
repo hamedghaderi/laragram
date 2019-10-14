@@ -11436,6 +11436,39 @@ video {
   color: #fff;
 }
 
+.dismiss-icon {
+  color: #fff;
+  position: absolute;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  display: inline-flex;
+  width: 30px;
+  height: 30px;
+  top: -15px;
+  left: -15px;
+  background: rgba(0, 0, 0, 0.5);
+  line-height: 1;
+  cursor: pointer;
+}
+
+.dismiss-icon:hover {
+  background-color: #000;
+}
+
+.feedback {
+  font-size: 0.875rem;
+  display: inline-flex;
+  padding: 0.75rem;
+  border-radius: 0.25rem;
+}
+
+.feedback--invalid {
+  background-color: #fff5f5;
+  color: #9b2c2c;
+}
+
 @media (min-width: 640px) {
   .sm\:sr-only {
     position: absolute;

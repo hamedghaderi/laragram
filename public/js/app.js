@@ -1847,12 +1847,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "FileUploader",
   data: function data() {
     return {
-      image: ''
+      image: '',
+      errors: {},
+      showError: false
     };
   },
   methods: {
@@ -1867,7 +1875,8 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/posts', data).then(function (response) {
         _this.$emit('uploaded', response.data);
       })["catch"](function (error) {
-        console.log(error.response.data.errors);
+        _this.showError = true;
+        _this.errors.image = error.response.data.errors['image'][0];
       });
     }
   },
@@ -1930,6 +1939,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['data'],
@@ -1950,6 +1961,15 @@ __webpack_require__.r(__webpack_exports__);
     },
     attachToPosts: function attachToPosts(post) {
       this.posts.push(post);
+    },
+    dismissPost: function dismissPost(post) {
+      var _this = this;
+
+      axios["delete"]('/posts/' + post.id).then(function (response) {
+        _this.posts = _this.posts.filter(function (oldPost) {
+          return oldPost.id != post.id;
+        });
+      });
     }
   }
 });
@@ -37259,15 +37279,24 @@ var render = function() {
         on: { uploaded: _vm.uploaded }
       }),
       _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "bg-blue-100 text-blue-500 px-12 py-2 rounded-full",
-          attrs: { type: "submit" },
-          on: { click: _vm.send }
-        },
-        [_vm._v("Upload")]
-      )
+      _c("div", { staticClass: "mb-3" }, [
+        _c(
+          "button",
+          {
+            staticClass: "bg-blue-100 text-blue-500 px-12 py-2 rounded-full",
+            attrs: { type: "submit" },
+            on: { click: _vm.send }
+          },
+          [_vm._v("Upload\n        ")]
+        )
+      ]),
+      _vm._v(" "),
+      _vm.showError
+        ? _c("span", {
+            staticClass: "feedback feedback--invalid",
+            domProps: { textContent: _vm._s(_vm.errors.image) }
+          })
+        : _vm._e()
     ],
     1
   )
@@ -37344,7 +37373,24 @@ var render = function() {
         _vm._l(_vm.posts, function(post) {
           return _c("div", { staticClass: "w-1/3 mb-12" }, [
             _c("div", { staticClass: "px-6" }, [
-              _c("div", { staticClass: "w-full h-64", style: _vm.style(post) })
+              _c(
+                "div",
+                { staticClass: "w-full h-64 relative", style: _vm.style(post) },
+                [
+                  _c(
+                    "span",
+                    {
+                      staticClass: "dismiss-icon",
+                      on: {
+                        click: function($event) {
+                          return _vm.dismissPost(post)
+                        }
+                      }
+                    },
+                    [_vm._v("x")]
+                  )
+                ]
+              )
             ])
           ])
         }),

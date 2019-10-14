@@ -13,7 +13,7 @@ class PostsController extends Controller
 
     public function index()
     {
-        $posts = POST::all();
+        $posts = auth()->user()->posts;
 
         return view('posts.index', compact('posts'));
     }
@@ -35,5 +35,22 @@ class PostsController extends Controller
         }
 
         return back();
+    }
+
+    public function destroy(Post $post)
+    {
+        if (auth()->id() != $post->owner_id)  {
+            abort(403);
+        }
+
+        $post->delete();
+
+        if (request()->wantsJson()) {
+            return response()->json([
+                'status' => 200
+            ]);
+        }
+
+        return redirect('/posts');
     }
 }

@@ -1,0 +1,15 @@
+.dismiss-icon {
+  @apply text-white absolute text-center items-center justify-center rounded-full;
+  display: inline-flex;
+  width: 30px;
+  height: 30px;
+  top: -15px;
+  left: -15px;
+  background: rgba(0,0,0,.5);
+  line-height: 1;
+  cursor:pointer;
+
+  &:hover {
+    @apply bg-black;
+  }
+}
