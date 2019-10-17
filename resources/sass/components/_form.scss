@@ -6,7 +6,11 @@
   }
 
   .input {
-    @apply block w-full;
+    @apply block w-full bg-gray-200 border-2;
+
+    &:focus {
+      @apply border-2 border-indigo-500;
+    }
   }
 }
 

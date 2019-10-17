@@ -11365,6 +11365,10 @@ video {
   z-index: auto;
 }
 
+body {
+  background-color: #edf2f7;
+}
+
 .container {
   min-width: 1200px;
   width: 1200px;
@@ -11377,8 +11381,32 @@ video {
   text-decoration: underline;
 }
 
+.navbar {
+  background-color: #fff;
+  border-bottom-width: 1px;
+  border-color: #e2e8f0;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.navbar__brand {
+  width: 250px;
+}
+
+.navbar__brand > img {
+  width: 100%;
+}
+
+.navbar__nav {
+  margin-left: auto;
+}
+
+.navbar .nav-item {
+  margin-left: 0.75rem;
+}
+
 .card {
-  background-color: #f7fafc;
+  background-color: #fff;
   padding-left: 3rem;
   padding-right: 3rem;
   padding-top: 2rem;
@@ -11409,6 +11437,13 @@ video {
 .form-group .input {
   display: block;
   width: 100%;
+  background-color: #edf2f7;
+  border-width: 2px;
+}
+
+.form-group .input:focus {
+  border-width: 2px;
+  border-color: #667eea;
 }
 
 .label {

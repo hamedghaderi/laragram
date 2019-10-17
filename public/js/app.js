@@ -37283,7 +37283,7 @@ var render = function() {
         _c(
           "button",
           {
-            staticClass: "bg-blue-100 text-blue-500 px-12 py-2 rounded-full",
+            staticClass: "btn btn-primary",
             attrs: { type: "submit" },
             on: { click: _vm.send }
           },
@@ -37327,7 +37327,7 @@ var render = function() {
     "label",
     {
       staticClass:
-        "border-dashed border-2 flex\n        items-center text-center justify-center text-5xl h-64 text-gray-400 mb-4",
+        "border-dashed border-2 flex\n        items-center text-center justify-center text-5xl h-64 text-gray-400 mb-4 bg-white",
       attrs: { for: _vm.name }
     },
     [

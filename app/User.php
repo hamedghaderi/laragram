@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -37,8 +36,50 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * A user may have many posts.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function posts()
     {
-       return $this->hasMany(Post::class, 'owner_id');
+        return $this->hasMany(Post::class, 'owner_id');
     }
+
+    /**
+     * A user may have many followers
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function followers()
+    {
+        return $this->belongsToMany(
+            User::class,
+            'followings',
+            'follower',
+            'following'
+        );
+    }
+
+    /**
+     * A user can follow another user.
+     *
+     * @param  User  $user
+     */
+    public function follow(User $user)
+    {
+        $this->followers()->attach($user);
+    }
+
+    /**
+     * Check if a user has followed another user.
+     *
+     * @param  User  $user
+     * @return mixed
+     */
+    public function isFollowing(User $user)
+    {
+       return $this->followers->contains($user);
+    }
+
 }

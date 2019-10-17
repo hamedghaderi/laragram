@@ -4,9 +4,12 @@
 
 @import "tailwindcss/utilities";
 
+@import "base/global";
+
 @import "helpers/grid";
 @import "helpers/typography";
 
+@import "components/navbar";
 @import "components/card";
 @import "components/form";
 @import "components/button";
