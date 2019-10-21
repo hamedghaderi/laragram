@@ -9,3 +9,4 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('/members/{user}', 'FollowingsController@store');
+Route::post('/followers/{user}/decline', 'FollowersController@destroy');

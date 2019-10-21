@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Laragram\Following\FollowingStatusManager;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -62,13 +63,30 @@ class User extends Authenticatable
     }
 
     /**
+     * A user may have many followings
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function followings()
+    {
+       return $this->belongsToMany(
+           User::class,
+           'followings',
+           'following',
+           'follower'
+       );
+    }
+
+    /**
      * A user can follow another user.
      *
      * @param  User  $user
      */
     public function follow(User $user)
     {
-        $this->followers()->attach($user);
+        $this->followers()->attach($user, [
+            'status' => FollowingStatusManager::STATUS_SUSPENDED
+        ]);
     }
 
     /**
@@ -77,9 +95,32 @@ class User extends Authenticatable
      * @param  User  $user
      * @return mixed
      */
-    public function isFollowing(User $user)
+    public function hasRequestedFollowing(User $user)
     {
-       return $this->followers->contains($user);
+       return $this->followers()
+           ->where('status', FollowingStatusManager::STATUS_SUSPENDED)
+           ->where('following', $user->id)
+           ->exists();
+    }
+
+    /**
+     * Decline a user from requested links
+     *
+     * @param  User  $user
+     */
+    public function decline(User $user)
+    {
+        $this->followings()->sync([$user->id => [
+            'status' => FollowingStatusManager::STATUS_DECLINED
+        ]]);
+    }
+
+    public function hasDeclined(User $user)
+    {
+       return $this->followings()
+           ->where('follower', $user->id)
+           ->where('status', FollowingStatusManager::STATUS_DECLINED)
+           ->exists();
     }
 
 }

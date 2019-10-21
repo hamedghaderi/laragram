@@ -17,6 +17,7 @@ class CreateFollowingsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('follower');
             $table->unsignedBigInteger('following');
+            $table->unsignedSmallInteger('status')->index();
             $table->timestamps();
 
             $table->foreign('follower')
