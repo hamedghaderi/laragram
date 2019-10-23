@@ -1,9 +1,9 @@
 <template>
     <div class="mb-8">
-        <input-file name="image" @uploaded="uploaded"></input-file>
+        <input-file class="mb-8" name="image" @uploaded="uploaded"></input-file>
 
         <div class="mb-3">
-            <button @click="send" class="btn btn-primary" type="submit">Upload
+            <button @click="send" class="button-primary" type="submit">Upload
             </button>
         </div>
 

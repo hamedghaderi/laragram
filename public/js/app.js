@@ -37275,6 +37275,7 @@ var render = function() {
     { staticClass: "mb-8" },
     [
       _c("input-file", {
+        staticClass: "mb-8",
         attrs: { name: "image" },
         on: { uploaded: _vm.uploaded }
       }),
@@ -37283,7 +37284,7 @@ var render = function() {
         _c(
           "button",
           {
-            staticClass: "btn btn-primary",
+            staticClass: "button-primary",
             attrs: { type: "submit" },
             on: { click: _vm.send }
           },
@@ -49864,8 +49865,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laragon\www\laragram\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laragon\www\laragram\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/kubak/projects/laragram/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/kubak/projects/laragram/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

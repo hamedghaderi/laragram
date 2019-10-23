@@ -1,8 +1,7 @@
-.btn {
-  @apply px-8 py-2 rounded;
+.button-primary {
+  @apply bg-indigo-600 text-white px-32 py-3 rounded-b-full rounded-tl-full shadow-lg;
 
-  &-primary {
-    @apply bg-indigo-600 text-white;
+  &:hover {
+      @apply shadow-md;
   }
 }
-

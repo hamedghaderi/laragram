@@ -14,11 +14,11 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar mb-12">
+        <nav class="bg-white py-4 border-b border-gray-400 mb-12">
             <div class="container">
                 <div class="flex items-center">
-                    <a class="navbar__brand" href="{{ url('/') }}">
-                        <img src="{{ asset('images/logo.svg') }}" alt="laragram">
+                    <a class="block w-48" href="{{ url('/') }}">
+                        <img class="w-full" src="{{ asset('images/logo.svg') }}" alt="laragram">
                     </a>
 
                     <!-- Right Side Of Navbar -->
@@ -28,6 +28,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
+
                             @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
@@ -35,12 +36,13 @@
                             @endif
                         @else
                             <li class="nav-item flex">
-                                <a id="navbarDropdown" class="mr-3" href="#" role="button" data-toggle="dropdown"
+                                <a id="navbarDropdown" class="mr-8 text-indigo-500" href="#" role="button"
+                                   data-toggle="dropdown"
                                    aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
-                                <div class="flex items-center" aria-labelledby="navbarDropdown">
+                                <div class="text-indigo-500" aria-labelledby="navbarDropdown">
                                     <a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
