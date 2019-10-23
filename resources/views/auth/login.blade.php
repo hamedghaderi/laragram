@@ -15,7 +15,7 @@
 <body>
 
 <div id="app" class="w-full flex">
-    <div class="w-1/2 bg-white h-screen">
+    <div class="w-1/2 bg-white min-h-screen">
         <div class="pt-8 px-12 mb-32">
             <img class="w-32" src="{{ asset('images/logo.svg') }}" alt="Laragram">
         </div>
@@ -106,7 +106,7 @@
         </div>
     </div>
 
-    <div class="w-1/2 h-screen bg-indigo-100 relative">
+    <div class="w-1/2 min-h-screen bg-indigo-100 relative">
         <img class="w-full absolute bottom-0 mb-24 right-0" src="{{ asset('images/login.svg') }}" alt="login form">
     </div>
 </div>
