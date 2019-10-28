@@ -113,4 +113,31 @@ class UserTest extends TestCase
         $this->assertTrue($iman->hasDeclined($sina));
     }
 
+    /** @test **/
+    public function it_can_accept_a_request_from_another_user()
+    {
+       $iman = $this->signIn() ;
+
+       $sina  = factory(User::class)->create()   ;
+
+       $sina->follow($iman);
+
+       $iman->accept($sina);
+
+       $this->assertTrue($sina->isFollowing($iman));
+    }
+
+    /** @test **/
+    public function it_can_check_if_a_user_is_following_them()
+    {
+       $iman = $this->signIn();
+
+       $sina = factory(User::class)->create();
+
+       $sina->follow($iman);
+       $iman->accept($sina);
+
+       $this->assertTrue($sina->isFollowing($iman));
+    }
+
 }

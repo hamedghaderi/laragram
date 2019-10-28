@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class FollowersController extends Controller
 {
+    public function store(User $user)
+    {
+        auth()->user()->accept($user);
+
+        return back();
+    }
+
     /**
      * Decline a user from followings list.
      *

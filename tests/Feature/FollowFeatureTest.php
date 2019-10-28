@@ -60,9 +60,30 @@ class FollowFeatureTest extends TestCase
 
         $this->assertTrue($sina->hasRequestedFollowing($iman));
 
-        $this->post('/followers/' . $sina->id . '/decline');
+        $this->post('/followers/'.$sina->id.'/decline');
 
         $this->assertTrue($iman->hasDeclined($sina));
         $this->assertFalse($sina->hasRequestedFollowing($iman));
+    }
+
+    /** @test * */
+    public function a_user_can_accept_another_user_following_request()
+    {
+        $this->withoutExceptionHandling();
+
+        $iman = $this->signIn();
+        $sina = factory(User::class)->create();
+
+        $sina->follow($iman);
+
+        $this->post('/followers/' . $sina->id . '/accept');
+
+        $this->assertTrue($sina->isFollowing($iman));
+
+        $this->assertDatabaseHas('followings', [
+            'following' => $iman->id,
+            'follower' => $sina->id,
+            'status' => FollowingStatusManager::STATUS_ACCEPTED
+        ]);
     }
 }
