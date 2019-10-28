@@ -48,7 +48,7 @@ class FollowFeatureTest extends TestCase
         ]);
     }
 
-    /** @test **/
+    /** @test * */
     public function after_sending_a_request_the_follower_may_decline_the_request()
     {
         $this->withoutExceptionHandling();

@@ -36,7 +36,8 @@ class UserTest extends TestCase
 
        $john->follow($jane);
 
-       $this->assertInstanceOf(Collection::class, $john->followers);
+       $this->assertInstanceOf(Collection::class, $jane->followers);
+       $this->assertTrue($john->hasRequestedFollowing($jane));
     }
 
     /** @test **/
@@ -50,7 +51,8 @@ class UserTest extends TestCase
 
         $john->follow($jane);
 
-        $this->assertInstanceOf(Collection::class, $jane->followings);
+        $this->assertInstanceOf(Collection::class, $john->followings);
+        $this->assertTrue($jane->hasRequestedFollower($john));
     }
 
     /** @test **/
@@ -64,7 +66,7 @@ class UserTest extends TestCase
 
         $john->follow($jane);
 
-        $this->assertTrue($john->followers->contains($jane));
+        $this->assertTrue($john->followings->contains($jane));
     }
 
     /** @test **/
