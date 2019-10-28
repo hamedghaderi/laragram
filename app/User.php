@@ -23,7 +23,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'username'
     ];
 
     /**
@@ -43,6 +43,48 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Event boot for User model.
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($user) {
+            if (!$user->username) {
+                $user->username = $user->generateUsername();
+            }
+        });
+    }
+
+    /**
+     * Get the path of a user
+     *
+     * @return string
+     */
+    public function path()
+    {
+       return '/users/' . $this->id;
+    }
+
+    /**
+     * Generate a username for user.
+     *
+     * @return string
+     */
+    function generateUsername() : string
+    {
+        $username = bcrypt($this->email);
+
+        $username = preg_replace('/[.\/]/', str_shuffle('eiwq'), $username).time();
+
+        while(User::whereUsername($username)->exists())  {
+            $this->generateUsername();
+        }
+
+        return $username;
+    }
 
     /**
      * A user may have many posts.
