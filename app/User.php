@@ -4,9 +4,9 @@ namespace App;
 
 use App\Laragram\Following\Follower;
 use App\Laragram\Following\Following;
-use App\Laragram\Following\FollowingStatusManager;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Scout\Searchable;
 
 /**
  * Class User
@@ -15,7 +15,7 @@ use Illuminate\Notifications\Notifiable;
  */
 class User extends Authenticatable
 {
-    use Notifiable, Follower, Following;
+    use Notifiable, Follower, Following, Searchable;
 
     /**
      * The attributes that are mass assignable.
