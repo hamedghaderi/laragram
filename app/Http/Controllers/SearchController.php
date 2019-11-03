@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
@@ -11,6 +10,12 @@ class SearchController extends Controller
     {
         $search = request('q');
 
-        return User::search($search)->get();
+        $users = User::search($search)->paginate(25);
+
+        if (request()->expectsJson()) {
+            return $users;
+        }
+
+        return view('users.index', compact('users'));
     }
 }

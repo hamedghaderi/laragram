@@ -3,28 +3,37 @@
 namespace Tests\Feature;
 
 use App\User;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\App;
+use Tests\TestCase;
 
 class SearchTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test **/
+    /** @test * */
     public function a_user_can_search_for_other_users_by_their_name_username_or_email()
     {
         $this->withoutExceptionHandling();
 
-        $search = 'john';
+        config(['scout.driver' => 'algolia']);
 
-        create(User::class, ['name' => 'Test', 'email' => 'test@gmail.com', 'username' => 'testuser'], 1);
-        create(User::class, ['name' => 'Mr. yjohnm']);
-        create(User::class, ['email' => 'youjohn@gmail.com']);
-        factory(User::class)->state('username')->create(['username' => 'parisjohn24']);
+        $search = 'foobar';
 
-        $result = $this->getJson("/users/search?q=$search")->json();
+        $test = create(User::class, ['name' => 'Test', 'email' => 'test@gmail.com', 'username' => 'testuser']);
+        $test1 = create(User::class, ['name' => 'Mr. foobar']);
+        $test2 = create(User::class, ['email' => 'foobar@gmail.com']);
+        $test3 = factory(User::class)->state('username')->create(['username' => 'foobar-24']);
+
+        do {
+            sleep(.25);
+
+            $result = $this->getJson("/users/search?q=$search")->json()['data'];
+        } while (count($result) !== 3);
 
         $this->assertCount(3, $result);
+
+        User::latest()->take(4)->unsearchable();
     }
 }

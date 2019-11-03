@@ -14,3 +14,5 @@ Route::post('/followers/{user}/accept', 'FollowersController@store');
 
 Route::patch('/users/{user}/username', 'UsernameController@update');
 Route::get('/users/search', 'SearchController@show');
+
+Route::view('search', 'search');
