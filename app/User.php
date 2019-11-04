@@ -95,4 +95,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class, 'owner_id');
     }
+
+    /**
+     * Add user path to search results.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        return $this->toArray() + ['path' => $this->path()];
+    }
 }

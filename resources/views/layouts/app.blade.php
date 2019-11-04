@@ -14,7 +14,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="bg-white py-4 border-b border-gray-400 mb-12">
+        <nav class="bg-white py-4 border-b border-gray-400">
             <div class="container">
                 <div class="flex items-center justify-between">
                     <a class="block w-48" href="{{ url('/') }}">
@@ -24,11 +24,13 @@
                     <div class="w-1/3">
                         <form action="/users/search" method="GET">
                             <div class="flex relative justify-center items-center">
-                                <input class="bg-gray-200 pl-12 pr-4 py-2 rounded w-full border focus:outline-none
-                                focus:border-indigo-500"
-                                       placeholder="Know anyone...?"
-                                       type="text"
-                                       name="q">
+                                <algolia-search token="{{ config('scout.algolia.key') }}" identification="{{ config('scout.algolia.id') }}"></algolia-search>
+
+{{--                                <input class="bg-gray-200 pl-12 pr-4 py-2 rounded w-full border focus:outline-none--}}
+{{--                                focus:border-indigo-500"--}}
+{{--                                       placeholder="Know anyone...?"--}}
+{{--                                       type="text"--}}
+{{--                                       name="q">--}}
                                 <span class="absolute left-0 ml-4 text-gray-500">
                                     <svg class="fill-current w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0
                                      24 24"
@@ -79,7 +81,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main>
             @yield('content')
         </main>
     </div>
