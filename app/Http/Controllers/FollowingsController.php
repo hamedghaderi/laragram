@@ -19,6 +19,10 @@ class FollowingsController extends Controller
      */
     public function store(User $user)
     {
+        if (auth()->user()->is($user)) {
+            return redirect($user->path());
+        }
+
         auth()->user()->follow($user);
 
         return back();

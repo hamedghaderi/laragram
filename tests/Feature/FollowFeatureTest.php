@@ -107,4 +107,18 @@ class FollowFeatureTest extends TestCase
             'status' => FollowingStatusManager::STATUS_SUSPENDED
         ]);
     }
+
+    /** @test **/
+    public function users_can_not_follow_themselves()
+    {
+       $sina = $this->signIn();
+
+       $this->post('/members/' . $sina->id)
+           ->assertRedirect($sina->path());
+
+       $this->assertDatabaseMissing('followings', [
+            'follower'   => $sina->id,
+           'following' => $sina->id
+       ]);
+    }
 }

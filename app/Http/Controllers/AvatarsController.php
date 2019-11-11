@@ -9,6 +9,10 @@ class AvatarsController extends Controller
 {
     public function store(User $user)
     {
+        request()->validate([
+            'avatar'  => 'required|image|file|max:1024'
+        ]);
+
         $filename = \request()->file('avatar')->hashName();
 
         \request()->file('avatar')->storeAs('/avatars/', $filename, 'public');
