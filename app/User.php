@@ -23,7 +23,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'username'
+        'name', 'email', 'password', 'username', 'avatar'
     ];
 
     /**
@@ -104,5 +104,17 @@ class User extends Authenticatable
     public function toSearchableArray()
     {
         return $this->toArray() + ['path' => $this->path()];
+    }
+
+    /**
+     * Add an avatar path to user table.
+     *
+     * @param $avatar
+     */
+    public function addAvatar($avatar)
+    {
+       $this->update([
+           'avatar' => 'avatars/' . $avatar
+       ]);
     }
 }

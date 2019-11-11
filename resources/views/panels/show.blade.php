@@ -12,14 +12,17 @@
                 </div>
 
                 <div class="w-1/2 text-right">
-                    <form action="/members/{{ $user->id }}" method="POST">
-                        @csrf
-                        @if (auth()->user()->hasRequestedFollowing($user))
+                    @if (auth()->user()->hasRequestedFollowing($user))
+                        <form action="/following/{{ $user->id }}/cancel" method="POST">
+                            @csrf
                             <button class="bg-red-100 text-red-700 rounded px-4 py-2">Cancel Request</button>
-                        @else
+                        </form>
+                    @else
+                        <form action="/members/{{ $user->id }}" method="POST">
+                            @csrf
                             <button class="bg-green-100 text-green-700 rounded px-4 py-2">Follow</button>
-                        @endif
-                    </form>
+                        </form>
+                    @endif
                 </div>
             </div>
         </div>

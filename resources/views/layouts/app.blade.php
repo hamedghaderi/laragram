@@ -22,7 +22,7 @@
                     </a>
 
                     <div class="w-1/3">
-                        <form action="/users/search" method="GET">
+{{--                        <form action="/users/search" method="GET">--}}
                             <div class="flex relative justify-center items-center">
                                 <algolia-search token="{{ config('scout.algolia.key') }}" identification="{{ config('scout.algolia.id') }}"></algolia-search>
 
@@ -39,7 +39,7 @@
                                 </span>
                             </div>
 
-                        </form>
+{{--                        </form>--}}
                     </div>
 
                     <!-- Right Side Of Navbar -->

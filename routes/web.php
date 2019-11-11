@@ -13,8 +13,9 @@ Route::post('/followers/{user}/decline', 'FollowersController@destroy');
 Route::post('/followers/{user}/accept', 'FollowersController@store');
 Route::post('/following/{user}/cancel', 'FollowingsController@destroy');
 
+Route::get('/users/search', 'SearchController@show');
+Route::post('/users/{user}/avatars', 'AvatarsController@store');
 Route::get('/users/{user}', 'PanelsController@show');
 Route::patch('/users/{user}/username', 'UsernameController@update');
-Route::get('/users/search', 'SearchController@show');
 
 Route::view('search', 'search');

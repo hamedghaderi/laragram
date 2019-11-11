@@ -64,6 +64,7 @@ class UploadImageTest extends TestCase
 
         Storage::fake('public');
 
+
         $image = UploadedFile::fake()->image('test.jpg');
 
         $this->post('/posts', [

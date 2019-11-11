@@ -11,13 +11,13 @@ class DashboardTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test **/
+    /** @test * */
     public function an_authenticated_user_can_have_a_panel()
     {
         $this->withoutExceptionHandling();
-        
-       $user = create(User::class);
 
-       $this->get($user->path())->assertSee($user->name);
+        $user = $this->signIn();
+
+        $this->get($user->path())->assertSee($user->name);
     }
 }

@@ -27,7 +27,6 @@
                 </a>
             </template>
         </ais-hits>
-
     </ais-instant-search>
 </template>
 
