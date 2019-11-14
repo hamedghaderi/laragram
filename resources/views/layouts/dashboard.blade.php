@@ -15,36 +15,40 @@
 </head>
 <body>
 <div id="app">
-    <nav class="bg-white py-12 px-4 border-r border-gray-400 fixed pin-l min-h-screen" style="width: 300px;">
-        <a class="block w-48 mb-12" href="{{ url('/') }}">
+    <nav class="bg-white py-12 px-4 border-r border-gray-400 fixed pin-l min-h-screen w-64">
+        <a class="block w-48 mb-12 mx-auto" href="{{ url('/') }}">
             <img class="w-full" src="{{ asset('images/logo.svg') }}" alt="laragram">
         </a>
 
-        <avatar :user="{{$user}}"></avatar>
+        <div class="flex items-center justify-center mb-3">
+            <avatar :user="{{$user}}"></avatar>
+        </div>
 
         <!-- Right Side Of Navbar -->
-        <ul class="flex">
+        <ul class="flex items-center justify-center flex-wrap">
             <!-- Authentication Links -->
-            @guest
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                </li>
-
-                @if (Route::has('register'))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                    </li>
-                @endif
-            @else
-                <li class="nav-item flex">
-                    <a id="navbarDropdown" class="mr-8 text-indigo-500" href="#" role="button"
+            @auth
+                <li class="nav-item w-full">
+                    <a id="navbarDropdown" class="mr-8 inline-flex w-full justify-center text-gray-500" href="#"
+                       role="button"
                        data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false" v-pre>
                         {{ Auth::user()->name }} <span class="caret"></span>
                     </a>
 
+                    <div class="block text-center text-sm mb-12">
+                        @if (strlen($user->username) > 20)
+                            <span title="{{ $user->username }}" class="text-indigo-700">{{ '@' . substr($user->username,
+                             0, 20) }}..
+                            .</span>
+                        @else
+                            <span class="text-indigo-700">{{ '@' . $user->username }}</span>
+                        @endif
+                    </div>
+
                     <div class="text-indigo-500" aria-labelledby="navbarDropdown">
-                        <a href="{{ route('logout') }}"
+                        <a class="mr-8 inline-flex w-full justify-center text-sm text-red-500" href="{{ route('logout')
+                         }}"
                            onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}
@@ -55,11 +59,11 @@
                         </form>
                     </div>
                 </li>
-            @endguest
+            @endauth
         </ul>
 </nav>
 
-<main>
+<main class="p-12">
     @yield('content')
 </main>
 </div>

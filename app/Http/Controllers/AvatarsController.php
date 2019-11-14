@@ -20,8 +20,8 @@ class AvatarsController extends Controller
         $user->addAvatar($filename);
 
         return response()->json([
-            'data' => $user,
-            'status' => 201
+            'status'    => 201,
+            'user' => $user
         ]);
     }
 }

@@ -49,7 +49,7 @@
 
                 axios.post('/users/' + this.user.id + '/avatars', formData).then(res => {
                     if (res.data.status == 201) {
-                        this.person.avatar = res.data.data.avatar;
+                        this.person.avatar = res.data.user.avatar;
                     }
                 });
             }

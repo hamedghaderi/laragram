@@ -25,7 +25,7 @@ class AvatarTest extends TestCase
 
         $this->postJson($user->path() . '/avatars', [
             'avatar' => $avatar
-        ])->assertJson(['status' => 201, 'data' => ['avatar' => 'avatars/' . $avatar->hashName()]]);
+        ])->assertJson(['status' => 201, 'user' => ['avatar' => 'avatars/' . $avatar->hashName()]]);
 
         $this->assertCount(1, Storage::disk('public')
             ->files('avatars'));
