@@ -11,41 +11,41 @@ class DeleteUploadedImageTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test **/
+    /** @test * */
     public function guests_can_not_delete_a_post()
     {
         $post = factory(Post::class)->create();
 
-        $this->delete('/posts/' . $post->id)
+        $this->delete('/posts/'.$post->id)
             ->assertRedirect('login');
     }
 
-    /** @test **/
+    /** @test * */
     public function a_user_can_delete_his_own_post()
     {
         $this->withoutExceptionHandling();
 
-       $this->signIn();
+        $this->signIn();
 
-       $post = factory(Post::class)->create(['owner_id' => auth()->id()]);
+        $post = factory(Post::class)->create(['owner_id' => auth()->id()]);
 
-       $this->assertDatabaseHas('posts', ['path' => $post->path]);
+        $this->assertDatabaseHas('posts', ['path' => $post->path]);
+        $this->assertNull($post->deleted_at);
 
-       $this->delete('/posts/' . $post->id)->assertRedirect('/posts');
-
-       $this->assertDatabaseMissing('posts', ['path' => $post->path]);
+        $this->delete('/posts/'.$post->id)->assertRedirect('/posts');
+        $this->assertNotNull($post->fresh()->deleted_at);
     }
 
-    /** @test **/
+    /** @test * */
     public function a_user_can_not_delete_other_users_post()
     {
         $david = $this->signIn();
 
         $john = factory(User::class)->create(['name' => 'John']);
 
-       $post = factory(Post::class) ->create(['owner_id' => $john->id]);
+        $post = factory(Post::class)->create(['owner_id' => $john->id]);
 
-       $this->delete('/posts/' . $post->id)
-           ->assertStatus(403);
+        $this->delete('/posts/'.$post->id)
+            ->assertStatus(403);
     }
 }

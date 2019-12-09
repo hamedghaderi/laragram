@@ -19,5 +19,6 @@ Route::get('/users/search', 'SearchController@show');
 Route::post('/users/{user}/avatars', 'AvatarsController@store');
 Route::get('/users/{user}', 'PanelsController@show');
 Route::patch('/users/{user}/username', 'UsernameController@update');
+Route::patch('/users/{user}/password', 'PasswordController@update');
 
 Route::view('search', 'search');
