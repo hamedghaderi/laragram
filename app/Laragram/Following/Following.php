@@ -2,6 +2,8 @@
 
 namespace App\Laragram\Following;
 
+use App\Activity;
+use App\Observers\FollowingObserver;
 use App\User;
 
 trait Following
