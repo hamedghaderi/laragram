@@ -47,7 +47,15 @@ trait Following
     {
         $this->followings()->attach($user, [
             'status' => FollowingStatusManager::STATUS_SUSPENDED
+
         ]);
+
+        $follow = \App\Following::follower($this)
+            ->following($user)
+            ->suspend()
+            ->first();
+
+        $follow->addActivity('Followed');
     }
 
     /**

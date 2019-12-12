@@ -36,7 +36,7 @@ class PostsObserver
      */
     public function deleted(Post $post)
     {
-       $post->addActivity('post_deleted');
+//       $post->addActivity('post_deleted');
     }
 
     /**

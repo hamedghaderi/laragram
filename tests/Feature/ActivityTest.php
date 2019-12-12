@@ -26,23 +26,4 @@ class ActivityTest extends TestCase
 
         $this->assertCount(1, $post->activities);
     }
-
-    /** @test */
-    public function when_deleting_a_post_an_activity_would_be_created()
-    {
-        $this->withoutExceptionHandling();
-
-        $post = create(Post::class);
-
-        $this->assertCount(1, $post->activities);
-
-        $post->delete();
-
-        $this->assertCount(2, Activity::all());
-        $this->assertDatabaseHas('activities', [
-            'message' => 'post_deleted',
-            'subject_id' => $post->id,
-            'subject_type' => Post::class
-        ]);
-    }
 }
